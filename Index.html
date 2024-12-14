@@ -9,15 +9,20 @@
     <h1>Random Country</h1>
     <button id="changeCountry">Change Country</button>
     <script>       
+        let jsonData;
+
         document.addEventListener("DOMContentLoaded", () => {
             console.log("DOMContentLoaded fired");
             fetch("countries.json")
                 .then(response => response.json())
-                .then(jsonData => parseJson(jsonData))
+                .then(data =>{
+                    jsonData = data;
+                    parseJson(jsonData)
+                })
                 .catch(error => {
-                    console.log(Error);
+                    console.log(error);
                 });
-        })
+        });
 
         function parseJson(jsonData) {
             console.log("parse Json!");
@@ -32,10 +37,11 @@
             const randomElement = jsonData.countries[randomIndex];
             let countryDiv = document.createElement("div");
             countryDiv.textContent = randomElement.name;
+            document.body.appendChild(countryDiv);
         }
 
         const button = document.getElementById("changeCountry")
-        button.addEventListener("click",randomCountry(jsonData))
+        button.addEventListener("click", () => randomCountry(jsonData))
     </script>
 </body>
 </html>
