@@ -7,12 +7,12 @@
 
 <body>
     <h1>Random Country</h1>
-    <button>Change Country</button>
-    <script>
+    <button id="changeCountry">Change Country</button>
+    <script>       
         document.addEventListener("DOMContentLoaded", () => {
             console.log("DOMContentLoaded fired");
             fetch("countries.json")
-                .then(respones => response.json())
+                .then(response => response.json())
                 .then(jsonData => parseJson(jsonData))
                 .catch(error => {
                     console.log(Error);
@@ -20,10 +20,22 @@
         })
 
         function parseJson(jsonData) {
-            console.log("parse Json!")
-            json
+            console.log("parse Json!");
+            jsonData.countries.forEach(country => {
+                console.log(country.name);
+            });
+            console.log(jsonData.countries.length);
         }
+
+        function randomCountry(jsonData){
+            const randomIndex = Math.floor(Math.random()*jsonData.countries.length);
+            const randomElement = jsonData.countries[randomIndex];
+            let countryDiv = document.createElement("div");
+            countryDiv.textContent = randomElement.name;
+        }
+
+        const button = document.getElementById("changeCountry")
+        button.addEventListener("click",randomCountry(jsonData))
     </script>
 </body>
-
 </html>
