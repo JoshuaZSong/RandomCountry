@@ -6,25 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Random Country</title>
-    <link rel="stylesheet" href="./style.css">
+    <!--<link rel="stylesheet" href="./style.css">-->
     <link rel="icon" href="./favicon.ico" type="image/x-icon">
 </head>
 
 <body>
-    <main>
-        <h1>Random Country</h1>
-    </main>
-    <button>Change</button>
+    <h1>Random Country</h1>
+    <button>Change Country</button>
     <script src="index.js">
         document.addEventListener("DOMContentLoaded", () => {
             fetch("countries.json")
-                .then(respones => response.json())
-                .then(jsonData => console.log(jsonData))
-                .catch(error=>{
-                    console.log("Error")
-                });
-                )
+            console.log("parseJson")
+            .then(respones => response.json())
+            .then(jsonData => parseJson(jsonData))
+            .catch(error=>{
+                console.log("Error")
+            });
         })
+
+        function parseJson(jsonData){
+
+        }
     </script>
 </body>
 
