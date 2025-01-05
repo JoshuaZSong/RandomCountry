@@ -1,54 +1,68 @@
-// document.addEventListener("DOMContentLoaded", () => {
-//     fetch("countries.json")
-//     console.log("parseJson")
-//     .then(respones => response.json())
-//     .then(jsonData => parseJson(jsonData))
-//     .catch(error=>{
-//         console.log("Error")
-//     });
-// })
 
 // Fetch continents and populate the dropdown
-async function fetchContinents() {
-    try {
-      const response = await fetch('http://localhost:3000/countries');
-      const data = await response.json();
+function fetchContinents() {
+    fetch('http://localhost:3000/countries')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        const continents = [];
+        data.countries.forEach(country => {
+          if (!continents.includes(country.continent)) {
+            continents.push(country.continent);
+          }
+        });
   
-      const continents = [...new Set(data.countries.map(country => country.continent))];
-      const dropdown = document.getElementById('continentDropdown');
+    
+        const dropdown = document.getElementById('continentDropdown');
   
-      continents.forEach(continent => {
-        const option = document.createElement('option');
-        option.value = continent;
-        option.textContent = continent;
-        dropdown.appendChild(option);
+        continents.forEach(continent => {
+          const option = document.createElement('option');
+          option.value = continent;
+          option.textContent = continent;
+          dropdown.appendChild(option);
+        });
+      })
+      .catch(error => {
+        console.error('Error fetching continents:', error);
       });
-    } catch (error) {
-      console.error('Error fetching continents:', error);
-    }
   }
+  
   
   
   // Fetch and display countries by continent
-  async function fetchCountriesByContinent(continent) {
-    try {
-      const response = await fetch(`http://localhost:3000/countries/${continent}`);
-      if (!response.ok) throw new Error('No countries found for the selected continent.');
-  
-      const data = await response.json();
-      const countriesList = document.getElementById('countriesList');
-      countriesList.innerHTML = '';
-  
-      data.countries.forEach(country => {
-        const listItem = document.createElement('li');
-        listItem.textContent = country;
-        countriesList.appendChild(listItem);
-      });
-    } catch (error) {
-      console.error('Error fetching countries:', error);
-      alert(error.message);
+  function fetchCountriesByContinent(continent) {
+    if (!continent) {
+      document.getElementById('countriesList').innerHTML = '';
+      return;
     }
+  
+    fetch(`http://localhost:3000/countries/${continent}`)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('No countries found for the selected continent.');
+        }
+        return response.json();
+      })
+      .then(data => {
+        const countriesList = document.getElementById('countriesList');
+        countriesList.innerHTML = '';
+  
+        data.countries.forEach(country => {
+          const listItem = document.createElement('li');
+          listItem.textContent = country;
+          countriesList.appendChild(listItem);
+        });
+      })
+      .catch(error => {
+        console.error('Error fetching countries:', error);
+        alert(error.message);
+      });
   }
+  
   
   // Add event listener to dropdown
   document.addEventListener('DOMContentLoaded', () => {
