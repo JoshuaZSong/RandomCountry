@@ -1,47 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Random Country</title>
-    <!--<link rel="stylesheet" href="./style.css">-->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Country by Continent</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    select {
+      display: block;
+      margin: 0 auto 20px;
+      padding: 10px;
+      font-size: 16px;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    li {
+      background-color: #f0f0f0;
+      margin: 5px 0;
+      padding: 10px;
+      border-radius: 5px;
+      text-align: center;
+    }
+  </style>
 </head>
-
 <body>
-    <h1>Random Country</h1>
-    <button id="changeCountry">Change Country</button>
-    <script>       
-        let jsonData;
+  <h1>Country by Continent</h1>
+  <select id="continentDropdown">
+    <option value="">Select a continent</option>
+  </select>
+  <ul id="countriesList"></ul>
 
-        document.addEventListener("DOMContentLoaded", () => {
-            console.log("DOMContentLoaded fired");
-            fetch("countries.json")
-                .then(response => response.json())
-                .then(data =>{
-                    jsonData = data;
-                    parseJson(jsonData)
-                })
-                .catch(error => {
-                    console.log(error);
-                });
-        });
-
-        function parseJson(jsonData) {
-            console.log("parse Json!");
-            jsonData.countries.forEach(country => {
-                console.log(country.name);
-            });
-            console.log(jsonData.countries.length);
-        }
-
-        function randomCountry(jsonData){
-            const randomIndex = Math.floor(Math.random()*jsonData.countries.length);
-            const randomElement = jsonData.countries[randomIndex];
-            let countryDiv = document.createElement("div");
-            countryDiv.textContent = randomElement.name;
-            document.body.appendChild(countryDiv);
-        }
-
-        const button = document.getElementById("changeCountry")
-        button.addEventListener("click", () => randomCountry(jsonData))
-    </script>
+  <script src="script.js"></script>
 </body>
 </html>
