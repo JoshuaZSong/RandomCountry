@@ -11,7 +11,11 @@
 
 <body>
     <div class="container mt-5">
-        <h1>Country by Continent</h1>
+        <div class="custom-dropdown">
+            <button id="dropdownButton" class="btn btn-primary dropdown-toggle">Select a continent</button>
+            <div id="dropdownMenu" class="dropdown-menu"></div>
+        </div>
+        <h1 class="text-center mb-4">Country by Continent</h1>
         <select id="continentDropdown" class="form-select rounded-pill mb-4" style="padding: 10px;">
             <option value="">Select a continent</option>
         </select>

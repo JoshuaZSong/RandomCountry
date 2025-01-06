@@ -19,8 +19,11 @@ function fetchContinents() {
     
         const dropdown = document.getElementById('continentDropdown');
   
+        dropdown.innerHTML = '<option value="">Select a continent</option>';
+
         continents.forEach(continent => {
           const option = document.createElement('option');
+          option.classList.add('grid-item');
           option.value = continent;
           option.textContent = continent;
           dropdown.appendChild(option);
