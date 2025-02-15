@@ -8,7 +8,8 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 const port = 3000;
-const dataFilePath = path.join(__dirname, 'country-by-continent.json');
+const jsonFilePath = path.join(__dirname, 'country-by-continent.json');
+let countryData;
 
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*'); 
@@ -16,12 +17,7 @@ app.use((req, res, next) => {
     res.header('Access-Control-Allow-Headers', 'Content-Type');
     next();
   });
-
-
-
-// Load JSON data
-const jsonFilePath = path.join(__dirname, 'country-by-continent.json');
-let countryData;
+  
 
 try {
     const rawData = fs.readFileSync(jsonFilePath, 'utf8');
